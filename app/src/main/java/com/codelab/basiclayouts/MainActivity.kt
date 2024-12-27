@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-        val windowSizeClass = calculateWindowSizeClass(this)
+            val windowSizeClass = calculateWindowSizeClass(this)
             MySootheApp(windowSizeClass)
         }
     }
@@ -119,8 +119,8 @@ fun AlignYourBodyElement(
     modifier: Modifier = Modifier
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
     ) {
         Image(
             painter = painterResource(drawable),
@@ -216,8 +216,8 @@ fun HomeSection(
             text = stringResource(title),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
-                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
                 .padding(horizontal = 16.dp)
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
         )
         content()
     }
@@ -283,8 +283,9 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun MySootheAppPortrait() {
     MySootheTheme {
-        Scaffold(bottomBar = { SootheBottomNavigation() }) { padding ->
-            HomeScreen(Modifier.padding(padding))
+        Scaffold(bottomBar = { SootheBottomNavigation() })
+        {
+            padding -> HomeScreen(Modifier.padding(padding))
         }
     }
 }
@@ -353,6 +354,7 @@ fun MySootheApp(windowSize: WindowSizeClass) {
         WindowWidthSizeClass.Compact -> {
             MySootheAppPortrait()
         }
+
         WindowWidthSizeClass.Expanded -> {
             MySootheAppLandscape()
         }
